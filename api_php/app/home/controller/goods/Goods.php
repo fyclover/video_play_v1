@@ -305,6 +305,7 @@ class Goods extends Base
                 'source_id' => $video_id,
                 'mark' => '主播获得打赏'
             ]);
+
             Db::commit();
         } catch (ValidateException $e) {
             Db::rollback();
@@ -336,7 +337,15 @@ class Goods extends Base
         return show(['is_user_pour'=>$is_user_pour]);
     }
 
+    public function my_upload(){
+        $page = Request::post('page/d', 1);			// 当前页
+        $limit = Request::post('limit/d', 20);		// 每页显示数量
 
-
+        $home_user = session('home_user');
+        $map=[];
+        $map[] = ['admin_uid','=',$home_user['id']];
+        $list = Video::page_list($map,$limit,$page);
+        return show($list);
+    }
 // 类结束了
 }

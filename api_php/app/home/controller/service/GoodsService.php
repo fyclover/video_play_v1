@@ -90,13 +90,15 @@ class GoodsService
         if (!empty($VideoType)){
             $whereIn =array_column($VideoType->toArray(),'id');
         }
-
+       
         $list = (new Video())
             ->where($map)
             ->whereIn('type',$whereIn)
             ->whereLike('vod_play_from','%m3u8%')
             ->order('update_time desc,id desc')
             ->paginate(['list_rows' => $limit, 'page' => $page]);
+            
+       
         // 为空
         if (empty($list)) return [];
         $list = $list->toArray();
@@ -569,7 +571,7 @@ class GoodsService
         // $video = (new Video())->find($videoId);	//查询视频  | 联合上播放地址
         $video = (new Video())
             ->alias('a')
-            ->field('b.*,a.admin_uid')
+            ->field('b.*,a.admin_uid,a.duration,a.heat,a.sort,a.video_price,a.video_money')
             ->where(array('a.id'=>$videoId))
             ->join('video_detail b', 'a.id=b.vod_id','left')
             ->find();
@@ -578,7 +580,7 @@ class GoodsService
 
         //开始  查看当前用户是否具备查看该视频的资格
         $video->is_purchase=5;	//is_purchase 1可观看  2需要单独购买 5不可观看  | 默认设置为不可以观看
-
+       
         // 只能单片 购买观看 不能加入套餐内播放产品
         if($video->is_only_buy_alone == 1){
             //查看用户是否对当前视频单独购买了
@@ -588,9 +590,10 @@ class GoodsService
         }
 
         // 可以套餐有效期内观看 也可以单片观看
-        if($video->is_only_buy_alone == 0){
+        if($video->is_only_buy_alone == 0 || empty($video->is_only_buy_alone)){
             //查看用户是否对当前视频单独购买了
             $alone_video = (new VideoBuyUserVideo())->alone_purchase($home_user['id'],$video->id);
+            
             if ($alone_video) $video->is_purchase = 1;
 
             //查询用户购买的套餐  查看用户 套餐是否有效
@@ -632,7 +635,11 @@ class GoodsService
                 $video->is_user_pour = 1;
             }
         }
-
+       
+        if($video->is_purchase == 5){
+            //$video->vod_play_url = '请购买后查看';
+        }
+        
         return $video;
     }
 

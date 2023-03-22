@@ -3,6 +3,7 @@
 
 namespace app\command;
 
+use app\common\model\AdminModel;
 use app\common\model\OrderModel;
 use app\common\model\UserModel;
 use app\common\service\BuyDivided;

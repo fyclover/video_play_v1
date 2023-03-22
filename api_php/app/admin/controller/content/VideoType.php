@@ -115,14 +115,14 @@ class VideoType extends Base
         if ($save) return $this->success([]);
         return $this->failed('修改失败');
     }
-
+    
     public function platform(){
         $data = [
             ['id'=>1,'name'=>'91大神'],
             ['id'=>2,'name'=>'麻豆'],
             ['id'=>3,'name'=>'番茄'],
-        ];
-
+            ];
+        
         return $this->success($data);
     }
 }

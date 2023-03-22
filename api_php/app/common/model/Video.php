@@ -35,9 +35,11 @@ class Video extends Model
                         $value= intval($value);
                     }
                 }
+                 
                 if (!empty($item->platform)){
-                    $item->platform = explode(',', $item->platform);
-                    foreach ($item->platform as $key=>&$value){
+                    $item->platform = @explode(',', $item->platform);
+                   
+                    foreach (@$item->platform as $key=>&$value){
                         $value = intval($value);
                     }
                 }

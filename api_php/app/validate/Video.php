@@ -22,9 +22,7 @@ class Video extends Validate
         'sort'=>'integer',
         'status'=>'integer',
         'description'=>'max:255',
-        'video_price'=>'float',
-        'labels'=>'require',
-        'platform'=>'require'
+        'video_price'=>'float'
     ];
 
     /**
@@ -50,8 +48,8 @@ class Video extends Validate
      * @var \string[][]
      */
     protected $scene  = [
-        'add'=>['type','title','des','sort','status','description','video_price','labels','platform'],
-        'edit'=>['id','type','title','des','sort','status','description','video_price','labels','platform'],
+        'add'=>['type','title','des','sort','status','description','video_price'],
+        'edit'=>['id','type','title','des','sort','status','description','video_price'],
         'detail'=>['id'],
 
     ];

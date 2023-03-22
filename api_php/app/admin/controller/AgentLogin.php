@@ -38,7 +38,8 @@ class AgentLogin extends BaseController
             // 验证失败 输出错误信息
             $this->failed($e->getError());
         }
-
+        
+        
         //查询代理商 查看账号密码是否匹配
         $res = $this->agentModel->where(['pwd' => pwdEncryption($post['pwd'])])->where('phone|user_name', $post['user_name'])->find();
         if (empty($res)) $this->failed('账号或者密码不匹配');

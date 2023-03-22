@@ -45,6 +45,7 @@ trait TraitModel
     {
         $id = intval($post['id']);
         $status = intval($post['status']);
+        //$status = $post['status'] == 1 ? 0 : 1;
 
         if ($id < 1) return false;
         $find = $this->find($id);

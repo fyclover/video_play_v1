@@ -15,7 +15,7 @@ class Auth
     {
         //   Db::name('video')->where('id','>',1)->update(['labels'=>'#玄幻#可爱#成熟#武侠#穿越']);
         //校验token
-        $token = $request->header('x-csrf-token');
+        $token = $request->header('x-csrf-token','ecb05b65e08b49132a60994ff4694a27bieniyxlngji');
         if(empty($token)){
             $token = $request->post('token');
         }

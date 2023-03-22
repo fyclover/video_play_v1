@@ -75,16 +75,16 @@ function image_update($string)
 {
     if(!is_array($string)){
         if(strpos($string,'storage') !== false){
-            return explode('/storage', $string)[1];
+        return explode('/storage', $string)[1];
         }
         return $string;
     }
 
 
     $column = array_column($string, 'url');
-
+   
     $image_url = config('ToConfig.app_update.image_url');
-
+   
     if(strpos($column[0],'http') !== false){
         return  str_replace($image_url,"",$column[0]);
     }

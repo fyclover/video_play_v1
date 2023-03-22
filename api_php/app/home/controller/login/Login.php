@@ -136,7 +136,7 @@ class Login extends BaseController
 
         //插入数据
         $this->model->save($data);
-
+        
 
         $find['token'] = $token = home_api_token($find['id']);
 

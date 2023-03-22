@@ -29,17 +29,18 @@ class Role
 
         //获取可访问控制器
         $power = RolePower::where('role_id', $admin['role'])->find();
+         
         if (empty($power)) return $this->failed('没有可访问的控制器');
         $power= $power->toArray();
         //查询控制器
         $func = AdminPower::whereIn('id', $power['auth_ids'])->select()->toArray();
 
         $path = array_column($func, 'path');
-       $path_info = $_SERVER['PATH_INFO'];
+       $path_info = $request->pathinfo();
        //线下 PATH_INFO  线上 REQUEST_URI;
         if (config('ToConfig.app_system.app_system')) $path_info=$_SERVER['REQUEST_URI'];
-
-        if (!in_array(substr($path_info,6), $path)) return $this->failed($path_info.'--'.'权限不够');
+       
+        if (!in_array($path_info, $path) && !in_array('/'.$path_info, $path)) return $this->failed($path_info.'--'.'权限不够');
         return $next($request);
 
     }
