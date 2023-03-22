@@ -1,0 +1,53 @@
+<div class="layui-col-lg12">
+    <label class="layui-form-label">订单状态:</label> 
+    <div class="layui-input-block">
+        <a href="{:url('index')}" type="button" class="layui-btn layui-btn-sm {if condition="$status neq ''"}layui-btn-primary{/if}">全部</a>
+        {volist name="order_status2" id="v"}
+        <a href="{:url('index')}?status={$key}" type="button" class="layui-btn layui-btn-sm {if condition="$status neq $key"}layui-btn-primary{/if}">{$v}
+<!--            <span class="layui-badge layui-bg-gray">0</span>-->
+        </a>
+        {/volist}
+        <!-- <button type="button" class="layui-btn layui-btn-sm layui-btn-primary">退款中
+        <span class="layui-badge">2</span></button> -->
+    </div>
+</div> 
+
+<div class="layui-col-lg12">
+    <label class="layui-form-label">支付方式:</label> 
+    <div class="layui-input-block">
+        <a href="{:url('index')}?status={$status}&tip={$tip}" type="button" class="layui-btn layui-btn-sm {if condition="$pay_type neq ''"}layui-btn-primary{/if}">全部</a>
+        <a href="{:url('index')}?status={$status}&tip={$tip}&pay_type=1" type="button" class="layui-btn layui-btn-sm {if condition="$pay_type neq 1"}layui-btn-primary{/if}">余额支付
+        </a>
+        <a href="{:url('index')}?status={$status}&tip={$tip}&pay_type=2" type="button" class="layui-btn layui-btn-sm {if condition="$pay_type neq 2"}layui-btn-primary{/if}">多宝金兑换
+        </a>
+    </div>
+</div> 
+<div class="layui-col-lg12">
+    <label class="layui-form-label">创建时间:</label> 
+    <div data-type="data" class="layui-input-block">
+        <a href="{:url('index')}?status={$status}&tip={$tip}&pay_type={$pay_type}" type="button" class="layui-btn layui-btn-sm {if condition="$time neq ''"}layui-btn-primary{/if}">全部</a>
+        {volist name="timeday" id="v"}
+        <a href="{:url('index')}?status={$status}&tip={$tip}&pay_type={$pay_type}&time={$key}" type="button" class="layui-btn layui-btn-sm {if condition="$time neq $key"}layui-btn-primary{/if}">{$v}</a>
+        {/volist}
+    </div>
+</div> 
+<div class="layui-col-lg12">
+    <label class="layui-form-label">自定义:</label>
+    <div class="layui-input-block" style="display:flex;">
+        <input class="layui-input"  autocomplete="off" placeholder="开始日" {notempty name="begin"} value="{$begin}" {/notempty} name="start_time" id="start" style="width:25%;margin-right:4px;">
+        <input class="layui-input"  autocomplete="off" placeholder="截止日" {notempty name="end"} value="{$end}"  {/notempty} name="end_time" id="end" style="width:25%;">
+    </div>
+</div> 
+<div class="layui-col-lg12">
+    <label class="layui-form-label">输入搜索:</label> 
+    <div class="layui-input-block" style="display:flex;">
+        <input type="text" name="order_num" id="order" value="{$order??''}" placeholder="请输入订单编号" class="layui-input" style="width:25%;margin-right:4px;">
+        <input type="text" name="user_name" id="name" placeholder="请输入用户昵称" value="{$nick??''}" class="layui-input" style="width:25%;margin-right:4px;">
+        <input type="text" name="phone" id="phone" placeholder="请输入用户电话" value="{$phone??''}" class="layui-input" style="width:25%">
+        <input type="hidden" name="time" id="time" value="{$time}"/>
+        <input type="hidden" name="status" id="status" value="{$status}"/>
+        <input type="hidden" id="begin" value="{$begin}"/>
+        <input type="hidden" id="end_time"  value="{$end}"/>
+        <input type="hidden" id="pay_type" value="{$pay_type}"/>
+    </div>
+</div> 

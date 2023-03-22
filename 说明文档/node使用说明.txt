@@ -1,0 +1,7 @@
+node 版本 14.X
+需要配合 cnpm 使用
+
+php7.3
+nginx
+
+

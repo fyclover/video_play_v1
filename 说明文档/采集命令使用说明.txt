@@ -1,0 +1,6 @@
+﻿1 分类采集： url访问 https://你的域名/index/cai_ji_video_type 获取视频分类
+2 详情采集：运行  php think video_list 获取列表。里面参数可改
+3 列表采集：运行  php think video_detail 获取视频视频详情
+
+
+

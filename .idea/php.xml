@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/upload/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/upload/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/upload/vendor/adbario/php-dot-notation" />
+      <path value="$PROJECT_DIR$/upload/vendor/overtrue/socialite" />
+      <path value="$PROJECT_DIR$/upload/vendor/overtrue/wechat" />
+      <path value="$PROJECT_DIR$/upload/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/upload/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/upload/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/upload/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/upload/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/upload/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/upload/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/upload/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/upload/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/upload/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/upload/vendor/league/flysystem-cached-adapter" />
+      <path value="$PROJECT_DIR$/upload/vendor/maennchen/zipstream-php" />
+      <path value="$PROJECT_DIR$/upload/vendor/pimple/pimple" />
+      <path value="$PROJECT_DIR$/upload/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/upload/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/upload/vendor/topthink/think-image" />
+      <path value="$PROJECT_DIR$/upload/vendor/topthink/think-multi-app" />
+      <path value="$PROJECT_DIR$/upload/vendor/topthink/think-orm" />
+      <path value="$PROJECT_DIR$/upload/vendor/topthink/think-trace" />
+      <path value="$PROJECT_DIR$/upload/vendor/mtdowling/jmespath.php" />
+      <path value="$PROJECT_DIR$/upload/vendor/alibabacloud/client" />
+      <path value="$PROJECT_DIR$/upload/vendor/topthink/think-template" />
+      <path value="$PROJECT_DIR$/upload/vendor/topthink/framework" />
+      <path value="$PROJECT_DIR$/upload/vendor/topthink/think-helper" />
+      <path value="$PROJECT_DIR$/upload/vendor/topthink/think-view" />
+      <path value="$PROJECT_DIR$/upload/vendor/easywechat-composer/easywechat-composer" />
+      <path value="$PROJECT_DIR$/upload/vendor/danielstjules/stringy" />
+      <path value="$PROJECT_DIR$/upload/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/upload/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/upload/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/upload/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/upload/vendor/clagiordano/weblibs-configmanager" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/cache" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/var-exporter" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/upload/vendor/symfony/cache-contracts" />
+      <path value="$PROJECT_DIR$/upload/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/upload/vendor/markbaker/matrix" />
+      <path value="$PROJECT_DIR$/upload/vendor/composer" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
+</project>

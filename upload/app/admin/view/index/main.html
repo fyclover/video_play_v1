@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        {include file='common/container'} 
+        <link rel="stylesheet" href="__STATIC__/css/bootstrap.min.css">
+        <link href="__STATIC__/stat/css/app.css" rel="stylesheet">
+    </head>
+    <style>
+        .layui-fluid {
+            background: #f3f3f4 !important;
+        }
+        .ui-sortable .ibox-title {
+            cursor: move;
+        }
+        .ibox {
+            clear: both;
+            margin-bottom: 15px;
+            margin-top: 0;
+            padding: 0;
+        }
+        .ibox-title h5 {
+            display: inline-block;
+            font-size: 14px;
+            margin: 0 0 7px;
+            padding: 0;
+            text-overflow: ellipsis;
+            float: left;
+            font-weight: 600;
+        }
+        .ibox-title {
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-top-colors: none;
+            background-color: #fff;
+            border-color: #e7eaec;
+            -webkit-border-image: none;
+            -o-border-image: none;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 4px 0 0;
+            color: inherit;
+            margin-bottom: 0;
+            padding: 14px 15px 7px;
+            min-height: 48px;
+        }
+        .ibox-content {
+            clear:both;
+            background-color: #fff;
+            color: inherit;
+            padding: 15px 20px 20px;
+            border-color: #e7eaec;
+            -webkit-border-image: none;
+            -o-border-image: none;
+            border-image: none;
+            border-style: solid solid none;
+            border-width: 1px 0;
+        }
+        .no-margins {
+            margin: 0!important;
+        }
+        h1 {
+            font-size: 30px;
+        }
+    </style>
+    <body>
+    <div class="layui-card">
+        <div class="layui-card-body ">
+            <form class="layui-form layui-col-space5">
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="开始日" value="{$s_time??''}" name="s_time" id="start">
+                </div>
+                <div class="layui-inline layui-show-xs-block">
+                    <input class="layui-input"  autocomplete="off" placeholder="截止日" value="{$end_time??''}" name="end_time" id="end">
+                </div>
+                <div class="layui-inline layui-show-xs-block">
+                    <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+        <div class="layui-fluid">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md12">
+                    <div class="col-sm-3 ui-sortable">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-danger pull-right">急</span>
+                                <h5>订单</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">{$topData.orderDeliveryNum}</h1>
+                                <small><a href="javascript:;" class="opFrames" data-name="订单管理" data-href="{:Url('order.store_order/index',['status'=>1])}">待发货</a> </small>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="col-sm-3 ui-sortable">-->
+<!--                        <div class="ibox float-e-margins">-->
+<!--                            <div class="ibox-title">-->
+<!--                                <span class="label label-info pull-right">待</span>-->
+<!--                                <h5>订单</h5>-->
+<!--                            </div>-->
+<!--                            <div class="ibox-content">-->
+<!--                                <h1 class="no-margins">{$topData.orderRefundNum}</h1>-->
+<!--                                <small><a href="javascript:;" class="opFrames" data-name="订单管理" data-href="{:Url('order.store_order/index',['status'=>-1])}">退换货</a></small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-3 ui-sortable" >-->
+<!--                        <div class="ibox float-e-margins">-->
+<!--                            <div class="ibox-title">-->
+<!--                                <span class="label label-danger pull-right">急</span>-->
+<!--                                <h5>商品</h5>-->
+<!--                            </div>-->
+<!--                            <div class="ibox-content">-->
+<!--                                <h1 class="no-margins">{$topData.stockProduct}</h1>-->
+<!--                                <small><a href="javascript:;" class="opFrames" data-name="商品管理" data-href="{:Url('store.store_product/index',array('type'=>5))}">库存预警</a></small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="col-sm-3 ui-sortable">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-danger pull-right">待</span>
+                                <h5>待提现</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">{$topData.treatedExtract}</h1>
+                                <small><a href="javascript:;" class="opFrames" data-name="提现盛情" data-href="{:Url('tx.tx/index')}">待提现</a></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 ui-sortable">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-info pull-right">昨</span>
+                                <h5>订单</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">{$first_line.d_num.data}</h1>
+                                <div class="stat-percent font-bold text-navy">
+                                    {if condition='$first_line.d_num.is_plus egt 0'}<i class="fa {if condition='$first_line.d_num.is_plus eq 1'}fa-level-up{else /}fa-level-down{/if}"></i>{/if}
+                                </div>
+                                <small><a href="javascript:;" class="opFrames" data-name="订单管理" data-href="{:Url('order/index')}?data=yesterday">昨日支付订单数</a></small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 ui-sortable">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-info pull-right">昨</span>
+                                <h5>交易</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">{$topData.now_month_order_p}</h1>
+                                <div class="stat-percent font-bold text-info">
+                                   
+                                </div>
+                                <small><a href="javascript:;" class="opFrames" data-name="订单管理" data-href="{:Url('order.store_order/index')}?data=yesterday">昨日交易额</a></small>
+                            </div>
+                        </div>
+                    </div>
+<!--                    <div class="col-sm-3 ui-sortable">-->
+<!--                        <div class="ibox float-e-margins">-->
+<!--                            <div class="ibox-title">-->
+<!--                                <span class="label label-info pull-right">今</span>-->
+<!--                                <h5>粉丝</h5>-->
+<!--                            </div>-->
+<!--                            <div class="ibox-content">-->
+<!--                                <h1 class="no-margins">{$topData.now_day_user}</h1>-->
+<!--                                <div class="stat-percent font-bold text-info">-->
+<!--                                    1%-->
+<!--                                    {if condition='1'}<i class="fa {if condition='1'}fa-level-up{else /}fa-level-down{/if}"></i>{/if}-->
+<!--                                </div>-->
+<!--                                <small><a href="javascript:;" class="opFrames" data-name="会员管理" data-href="{:Url('user.user/index')}">今日新增粉丝</a></small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-sm-3 ui-sortable">-->
+<!--                        <div class="ibox float-e-margins">-->
+<!--                            <div class="ibox-title">-->
+<!--                                <span class="label label-info pull-right">月</span>-->
+<!--                                <h5>粉丝</h5>-->
+<!--                            </div>-->
+<!--                            <div class="ibox-content">-->
+<!--                                <h1 class="no-margins">{$topData.now_month_user}</h1>-->
+<!--                                <div class="stat-percent font-bold text-info">-->
+<!--                                    1%-->
+<!--                                    {if condition='1'}<i class="fa {if condition='1'}fa-level-up{else /}fa-level-down{/if}"></i>{/if}-->
+<!--                                </div>-->
+<!--                                <small><a href="javascript:;" class="opFrames" data-name="会员管理" data-href="{:Url('user.user/index')}">本月新增粉丝</a></small>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+                <div class="layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header">商品订单一周销售数据统计</div>
+                        <div class="layui-card-body ">
+                            <div class="db-wrap" style="margin-top: -20px;">
+                                <div class="db-left">
+                                    <div class="db-session">
+                                        <div class="db-title2">
+                                        <span><img src="__STATIC__/stat/images/title-pointer.png" alt="">订单一周销售统计</span>
+                                        </div>
+                            
+                                        <div class="db-chart" id="chart2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="layui-col-md12">-->
+<!--                    <div class="layui-card">-->
+<!--                        <div class="layui-card-header">开发团队</div>-->
+<!--                        <div class="layui-card-body ">-->
+<!--                            <table class="layui-table">-->
+<!--                                <tbody>-->
+<!--                                    <tr>-->
+<!--                                        <th>越想互联：<a href="http://yuethink.com/" target="_blank">访问官网</a></th>-->
+<!--                                        </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <style id="welcome_style"></style>
+            </div>
+        </>
+        </div>
+        <script src="https://cdn.staticfile.org/echarts/4.4.0-rc.1/echarts.min.js"></script>
+        <script type="text/javascript" src="__STATIC__/stat/js/runtime.js"></script>
+        <script type="text/javascript" src="__STATIC__/stat/js/vendor.js"></script>
+        <script type="text/javascript" src="__STATIC__/stat/js/app.js"></script></body>
+        <script>
+            window.addEventListener('load', function() {
+            
+        
+            new ChartSet({
+                el: document.getElementById('chart2'),
+                config: ChartSet.barConfig('金额', '/元', [
+                {volist name="arr" id="v"}
+                    { value: {$v.money}, name: '{$v.date}' },
+                
+                {/volist}
+                ])
+            });
+            });
+        </script>
+    <script>
+        layui.use(['laydate','form'], function(){
+            var laydate = layui.laydate;
+            var form = layui.form;
+            // 监听全选
+            form.on('checkbox(checkall)', function(data){
+                if(data.elem.checked){
+                    $('tbody input').prop('checked',true);
+                }else{
+                    $('tbody input').prop('checked',false);
+                }
+                form.render('checkbox');
+            });
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#start' //指定元素
+            });
+
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#end' //指定元素
+            });
+        });
+    </script>
+    </body>
+</html>

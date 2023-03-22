@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <title>视频播放</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-language" content="zh-CN">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="referrer" content="never" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <link rel="stylesheet" href="./css/DPlayer.min.css">
+    <script type="text/javascript" src="./js/hls.min.js"></script>    
+	<script type="text/javascript" src="./js/DPlayer_renrenmi.min.js"></script>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <style type="text/css">
+		html,body{height:100%;margin:0;padding:0;overflow:hidden;text-align:center;background:#181818} 
+		*{margin:0;border:0;padding:0;text-decoration:none} 
+		#video{height:100%} 
+		.dplayer-logo{max-width:150px;max-height:50px;left:auto;right:5%;top:5%}
+		</style>
+    <script type="text/javascript">$("#my-loading", parent.document).remove();</script>
+  </head>
+<body>
+<div id="video"></div>
+<script type="text/javascript">
+// 获取 url 
+(function ($) {
+	$.getUrlParam = function (name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]); return null;
+	}
+})(jQuery);
+var urls = $.getUrlParam('url');
+var jump = "";
+var dp = new DPlayer({
+    container: document.getElementById('video'),
+    theme: '#4C8FE8', 
+    volume: 0.8,
+    logo:"",autoplay: true,    video: {
+	    url: urls,pic: "",type: 'auto',
+		defaultQuality: 0
+	}
+    ,contextmenu: [{text: "403 Forbidden",link: "#"}]});
+dp.on("fullscreen",function() {
+    dp.notice("全屏已开启");
+});
+dp.on("fullscreen_cancel",function() {
+    dp.notice("全屏已关闭");
+});
+</script>
+
+<script type="text/javascript">
+        var cookie = {
+          'set': function(name, value, days) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() + days * 24 * 60 * 60 * 1000);
+            var arr = document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)'));
+            document.cookie = name + '=' + escape(value) + ';path=/;expires=' + exp.toUTCString();
+          },
+          'get': function(name) {
+            var arr = document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)'));
+            if (arr != null) return unescape(arr[2]);
+          },
+          'put': function(urls) {
+            var cookie = urls.replace(/[^a-z]+/ig, '');
+            var cookie = cookie.substring(cookie.length - 32);
+            return cookie;
+          }
+        }
+        dp.on('loadeddata',function() {
+          cookie.get(urls) ? dp.seek(cookie.get(urls)) : dp.notice("视频已就绪");
+          dp.on('timeupdate',function() {
+            if (cookie) cookie.set(urls, dp.video.currentTime, 30);
+          });
+        });
+        dp.on('ended',function() {
+          dp.notice("视频播放已结束");
+          if (jump != '') {
+            top.location.href = jump;
+          }        });
+</script>
+</body>
+</html>

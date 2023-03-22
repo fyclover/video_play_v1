@@ -1,0 +1,34 @@
+
+<div class="layui-col-lg12">
+    <label class="layui-form-label">类型:</label> 
+    <div class="layui-input-block">
+        <a href="{:url('index')}?plate_id=" type="button" class="layui-btn layui-btn-sm {if condition="$plate_id neq ''"}layui-btn-primary{/if}">全部</a>
+        {volist name="plate" id="v"}
+        <a href="{:url('index')}?plate_id={$v.id}" type="button" class="layui-btn layui-btn-sm {if condition="$plate_id neq $v.id"}layui-btn-primary{/if}">{$v.name}
+        </a>
+        {/volist}
+    </div>
+</div>
+<div class="layui-col-lg12">
+    <label class="layui-form-label">活动:</label> 
+    <div class="layui-input-block">
+        <a href="{:url('index')}?plate_id=" type="button" class="layui-btn layui-btn-sm {if condition="$plate_id neq ''"}layui-btn-primary{/if}">全部</a>
+        <a href="{:url('index')}?plate_id={$v.id}" type="button" class="layui-btn layui-btn-sm {if condition="$plate_id neq $v.id"}layui-btn-primary{/if}">秒杀
+        </a>
+        <a href="{:url('index')}?plate_id={$v.id}" type="button" class="layui-btn layui-btn-sm {if condition="$plate_id neq $v.id"}layui-btn-primary{/if}">黔宝兑换
+        </a>
+    </div>
+</div>
+<div class="layui-col-lg12">
+    <label class="layui-form-label">输入搜索:</label> 
+    <div class="layui-input-block" style="display:flex;">
+        <select name="type_id">
+            <option value="">分类</option>
+            {volist name="cate" id="v"}
+                <option value="{$v.id}">{$v.cate_name}</option>
+            {/volist}
+        </select>
+        <input type="text" name="name" placeholder="商品名/商品sku" class="layui-input" style="width:25%;margin-left: 10px;">
+        <button style="margin-left: 10px;margin-top: 0;" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+    </div>
+</div> 

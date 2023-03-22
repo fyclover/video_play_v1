@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    {include file='common/container'}
+</head>
+
+<body>
+<div class="x-nav">
+          <span class="layui-breadcrumb">
+            <a href="">首页</a>
+            <a href="">视频管理</a>
+            <a>
+              <cite>视频列表</cite>
+            </a>
+          </span>
+    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
+       onclick="location.reload()" title="刷新">
+        <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body ">
+                    <!--<form class="layui-form layui-col-space5">-->
+                    <!--    <div class="layui-inline layui-show-xs-block">-->
+                    <!--        <input type="text" name="name"  placeholder="域名搜索" autocomplete="off" class="layui-input">-->
+                    <!--    </div>-->
+                    <!--    <div class="layui-inline layui-show-xs-block">-->
+                    <!--        <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>-->
+                    <!--    </div>-->
+                    <!--</form>-->
+
+                    <div id="uploader" class="wu-example">
+                        <!--用来存放文件信息-->
+                        <div id="thelist" class="uploader-list"></div>
+                        <div class="btns">
+                            <div id="picker">选择上传文件</div>
+                            <!--                            <button id="ctlBtn" class="btn btn-default layui-btn layui-btn-danger">开始上传</button>-->
+                        </div>
+                    </div>
+
+                    <br/>
+                    <!--                    <button  class="layui-btn layui-btn-danger" onclick="shengchengyuming()">-->
+                    <!--                        上传文件-->
+                    <!--                    </button>-->
+                </div>
+                <div class="layui-card-body ">
+                    <table class="layui-table layui-form">
+                        <thead>
+                        <!--                        <th>ID</th>-->
+                        <th>文件名</th>
+                        <th>地址</th>
+                        <th>上传时间</th>
+<!--                        <th>状态</th>-->
+                        </thead>
+                        <tbody>
+                        {volist name="list" id="v"}
+                        <tr>
+                            <!--                            <td>{$v.id}</td>-->
+                            <td>{$v.name}</td>
+                            <td>{$v.video_path}</td>
+                            <!--                            <td onclick='fuzhi("{$v.name}")'>点击复制域名</td>-->
+                            <td>{$v.create_time}</td>
+<!--                            <td>-->
+<!--                                {if $v.status == 1}-->
+<!--                                正常-->
+<!--                                {/if}-->
+<!--                                {if $v.status == 0}-->
+<!--                                <span style="color: red">待审核</span>-->
+<!--                                {/if}-->
+
+<!--                            </td>-->
+                        </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="layui-card-body ">
+                    <div class="page">
+                        {$list|raw}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__STATIC__/js/form.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.min.js"></script>
+<!--<script>-->
+
+<!--    function fuzhi(ss){-->
+<!--        const el = document.createElement('input')-->
+<!--        // 给input元素赋值需要复制的文本-->
+<!--        el.setAttribute('value', ss)-->
+<!--        // 将input元素插入页面-->
+<!--        document.body.appendChild(el)-->
+<!--        // 选中input元素的文本-->
+<!--        el.select()-->
+<!--        // 复制内容到剪贴板-->
+<!--        document.execCommand('copy')-->
+<!--        // 删除input元素-->
+<!--        document.body.removeChild(el)-->
+<!--        alert('复制成功')-->
+<!--    }-->
+<!--    layui.use(['laydate', 'form'], function () {-->
+<!--        var laydate = layui.laydate;-->
+<!--        var form = layui.form;-->
+<!--        // 监听全选-->
+<!--        form.on('checkbox(checkall)', function (data) {-->
+<!--            if (data.elem.checked) {-->
+<!--                $('tbody input').prop('checked', true);-->
+<!--            } else {-->
+<!--                $('tbody input').prop('checked', false);-->
+<!--            }-->
+<!--            form.render('checkbox');-->
+<!--        });-->
+<!--        //执行一个laydate实例-->
+<!--        laydate.render({-->
+<!--            elem: '#start' //指定元素-->
+<!--        });-->
+
+<!--        //执行一个laydate实例-->
+<!--        laydate.render({-->
+<!--            elem: '#end' //指定元素-->
+<!--        });-->
+<!--    });-->
+
+<!--    function is_status(){-->
+<!--        //发异步，把数据提交给php-->
+<!--        $('.jiance').html('检测中')-->
+<!--        console.log($(this))-->
+<!--        $.ajax({-->
+<!--            url:"{:url('is_status')}",-->
+<!--            method:'post',-->
+<!--            dataType:'JSON',-->
+<!--            processData: false,-->
+<!--            contentType: false,-->
+<!--            success:function(res){-->
+<!--                if(res.code == 200){-->
+<!--                    layer.alert(res.msg, {icon: 6},function () {-->
+<!--                        xadmin.close();-->
+<!--                        // 可以对父窗口进行刷新-->
+<!--                        xadmin.father_reload();-->
+<!--                    });-->
+<!--                }else{-->
+<!--                    $('.jiance').html('检测完成')-->
+<!--                    layer.msg('检测完成');-->
+<!--                }-->
+<!--            },-->
+<!--            error:function (data) {-->
+<!--                $('.jiance').html('检测失败')-->
+<!--            }-->
+<!--        }) ;-->
+<!--    }-->
+<!--    function shengchengyuming () {-->
+<!--            //发异步，把数据提交给php-->
+<!--            $.ajax({-->
+<!--                url:"{:url('detail')}",-->
+<!--                method:'post',-->
+<!--                dataType:'JSON',-->
+<!--                processData: false,-->
+<!--                contentType: false,-->
+<!--                success:function(res){-->
+<!--                    if(res.code == 200){-->
+<!--                        layer.alert(res.msg, {icon: 6},function () {-->
+<!--                            xadmin.close();-->
+<!--                            // 可以对父窗口进行刷新-->
+<!--                            xadmin.father_reload();-->
+<!--                        });-->
+<!--                    }else{-->
+<!--                        layer.msg(res.msg);-->
+<!--                    }-->
+<!--                },-->
+<!--                error:function (data) {}-->
+<!--            }) ;-->
+<!--    }-->
+
+<!--</script>-->
+
+
+<script>
+    var uploadswf = 'webupload/Uploader.swf';
+    var chunkSize = 2*1024*1024;
+    var server_url='/index.php/admin/upload/index';
+    var server_cf='/index.php/admin/upload/cf';
+    var GUID = WebUploader.Base.guid();//一个GUID
+    var chunkObj = {};  //用来记录文件的状态、上传中断的位置
+    var seq=1;
+    var msg='';
+    $(function () {
+
+        var $ = jQuery;
+
+        var $list = $('#thelist');
+        WebUploader.Uploader.register({
+            "before-send-file":"beforeSendFile",
+            "before-send": "beforeSend"
+        }, {
+            "beforeSendFile": function (file) {
+                //上传前校验文件是否已经上传过
+                var deferred = WebUploader.Deferred();
+                $.ajax({
+                    type:"POST",
+                    //上传前校验文件上传到第几片
+                    url: server_cf,
+                    data: {
+                        seq: seq,
+                        fileMd5: md5(file.name + file.size + file.ext),
+                        fileName:file.name
+                    },
+                    dataType: "json",
+                    success: function (data) {
+
+                        chunkObj = data;
+                        chunkObj.type = data.type;
+                        chunkObj.chunk == data.chunk;
+                        msg = data.msg;
+                        if(data.type==404){
+                            deferred.reject();
+                            $("#" + file.id).find(".state").text(data.msg);
+
+                        }else if (data.type == 0) {
+                            deferred.reject();
+                            $("#" + file.id).find(".state").text("文件已上传");
+                        } else if (data.type == 1) {
+                            if (data.chunk) {
+                                deferred.resolve();
+                            }
+                        } else {
+                            deferred.resolve();
+                        }
+
+                    },
+                    error: function () {
+                        deferred.resolve();
+                    }
+                })
+                //deferred.resolve();
+                return deferred.promise();
+            },
+            "beforeSend": function (block) {
+                var deferred = WebUploader.Deferred();
+                var curChunk = block.chunk;
+                var totalChunk = block.chunks;
+                console.log(chunkObj)
+                if (chunkObj.type == "1") {
+                    if (curChunk < chunkObj.chunk) {
+                        deferred.reject();
+                    } else {
+                        deferred.resolve();
+                    }
+                } else {
+                    deferred.resolve();
+                }
+                return deferred.promise();
+            }
+        });
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: true,
+            // swf文件路径
+            swf: uploadswf,
+            // 文件接收服务端。
+            server: server_url,
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#picker',
+            chunked: true,//开始分片上传
+            chunkSize:1 * 1024 * 1024,//每一片的大小
+            threads: 1,
+            formData: {
+            },
+
+            // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+            resize: false
+        });
+
+        // 当有文件被添加进队列的时候
+        uploader.on('fileQueued', function (file) {
+
+            $list.append('<div id="' + file.id + '" class="item">' +
+                '<div class="item-file"><div class="fileType-logo"></div>' +
+                '<div class="fileMes"><h4 class="info">' + file.name + '</h4>' +
+                '<p class="state">等待上传...</p>' +
+                '</div></div></div>');
+
+        });
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress .progress-bar');
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<div class="progress progress-striped active">' +
+                    '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                    '</div>' +
+                    '</div>').appendTo($li).find('.progress-bar');
+            }
+            $li.find('p.state').text('上传中...请勿刷新');
+            $percent.css('width', percentage * 100 + '%');
+        });
+        uploader.on("uploadBeforeSend", function (obj, data, headers) {
+            var file = obj.cuted.file;
+
+
+            data.test = 1;
+            data.fileMd5 = md5(file.name + file.size + file.ext);
+
+        })
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function (file, response) {
+            if(response.status==299){
+                $('#' + file.id).find('p.state').text('文件已存在');
+            }else{
+                $('#' + file.id).find('p.state').text('已上传');
+            }
+
+        });
+        // 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function (file) {
+            $('#' + file.id).find('p.state').text(msg);
+        });
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on('uploadComplete', function (file) {
+            $('#' + file.id).find('.progress').fadeOut();
+        });
+        //所有文件上传完毕
+        uploader.on("uploadFinished", function () {
+            //提交表单
+        });
+        //开始上传
+        $("#ctlBtn").click(function () {
+            uploader.upload();
+
+        });
+    });
+
+</script>
+</html>
