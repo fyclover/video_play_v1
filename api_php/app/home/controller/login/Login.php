@@ -78,7 +78,7 @@ class Login extends BaseController
             return show([], config('ToConfig.http_code.error'), $e->getError());
         }
         //判断是否存在该账号
-        $rand = userkey(rand(10, 20));//生成账号
+        $rand = userkey(rand(3, 8));//生成账号
         $find = $this->model->where('phone', $post['phone'])->whereOr('user_name', $rand)->find();
         if ($find) return show([], config('ToConfig.http_code.error'), '该手机号已存在');
 
@@ -97,6 +97,7 @@ class Login extends BaseController
         if (isset($post['codes']) && !empty($post['codes'])) {
             $agent = $this->model->where('invitation_code', $post['codes'])->find();
             if ($agent) {
+                $data['agent_id'] = $agent->id;
                 $data['agent_id_1'] = $agent->id;
                 $data['agent_id_2'] = $agent->agent_id_1;
                 $data['agent_id_3'] = $agent->agent_id_2;
@@ -116,9 +117,8 @@ class Login extends BaseController
     {
         $post['phone'] = '';
         $post['pwd'] = home_Initial_pwd();
-
         //判断是否存在该账号
-        $rand = userkey(rand(10, 20));//生成账号
+        $rand = userkey(rand(3, 8));//生成账号
         $find = $this->model->where('user_name', $rand)->find();
         if ($find) return show([], config('ToConfig.http_code.error'), 'no');
 
@@ -138,6 +138,7 @@ class Login extends BaseController
         if (isset($post['codes']) && !empty($post['codes'])) {
             $agent = $this->model->where('invitation_code', $post['codes'])->find();
             if ($agent) {
+                $data['agent_id'] = $agent->id;
                 $data['agent_id_1'] = $agent->id;
                 $data['agent_id_2'] = $agent->agent_id_1;
                 $data['agent_id_3'] = $agent->agent_id_2;
@@ -239,6 +240,7 @@ class Login extends BaseController
                 $date = $find['end_time'];
                 $period->where('uid',$AgentId)->update(['end_time'=>date('Y-m-d H:i:s',strtotime("$date +3 day"))]);
             }
+            MoneyLog::data_insert(1,2030,0,0,0,$AgentId,$find['market_uid'],$uid,'获得赠送3天会员免费观看');
             return true;
         }
 
@@ -247,7 +249,7 @@ class Login extends BaseController
             $money  = 10;
             $find = models::where('id',$AgentId)->find();
             models::where('id',$AgentId)->inc('points',10)->update();
-            MoneyLog::data_insert(2,2010,$find['points'],$find['points']+$money,$money,$AgentId,$find['market_uid'],$uid,'注册返利');
+            MoneyLog::data_insert(1,2010,$find['points'],$find['points']+$money,$money,$AgentId,$find['market_uid'],$uid,'注册返利');
             return true;
         }
         return true;

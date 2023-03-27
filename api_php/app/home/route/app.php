@@ -60,6 +60,9 @@ Route::rule('goodsInfo/mygive$', 'home/goods.goodsInfo/my_give_the_thumbs_up');/
 Route::rule('goodsInfo/comment$', 'home/goods.goodsInfo/video_comment');//评论
 Route::rule('goodsInfo/reply$', 'home/goods.goodsInfo/video_reply');//评论回复
 Route::rule('goodsInfo/heat$', 'home/goods.goodsInfo/video_new_list');//热播视频
+
+
+
 Route::rule('goods/my_video$', 'home/goods.GoodsInfo/my_upload');//我上传的视频
 Route::rule('goods/my_fabulous$', 'home/goods.GoodsInfo/fabulous_msg');//我点赞
 Route::rule('goods/my_msg$', 'home/goods.GoodsInfo/comment_msg');//我视频评论
@@ -79,6 +82,11 @@ Route::rule('user/edit$', 'home/user.user/user_edit');//用户信息修改
 Route::rule('user/chargeList$', 'home/user.user/get_charge_list');//获取用户充值列表
 Route::rule('user/buyList$', 'home/user.user/get_buyset_list');//获取用户购买列表
 Route::rule('user/withdrawalList$', 'home/user.user/get_withdrawal_list');//获取用户提现
+
+Route::rule('goodsInfo/income$', 'home/goods.goodsInfo/income_list');//推广人数
+Route::rule('goodsInfo/rebate$', 'home/goods.goodsInfo/rebate_list');//推广返利
+Route::rule('goodsInfo/revenueList$', 'home/goods.goodsInfo/revenue_details_list');//推广收益列表
+Route::rule('goodsInfo/recordList$', 'home/goods.goodsInfo/promotion_record_list');//推广记录
 
 
 Route::rule('/upload$', 'home/uploadData/image');//上传头像
