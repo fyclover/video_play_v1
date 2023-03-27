@@ -570,6 +570,7 @@ class GoodsService
         // $video = (new Video())->find($videoId);	//查询视频  | 联合上播放地址
         $video = (new Video())
             ->alias('a')
+            ->alias('a')
             ->field('b.*,a.admin_uid,a.duration,a.heat,a.sort,a.video_price,a.video_money')
             ->where(array('a.id'=>$videoId))
             ->join('video_detail b', 'a.id=b.vod_id','left')
