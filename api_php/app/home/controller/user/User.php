@@ -124,5 +124,4 @@ class User extends Base
         $this->model->where('id',$home_user['id'])->update($update);
         return show();
     }
-// 类结束了
 }

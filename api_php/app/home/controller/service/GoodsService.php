@@ -71,7 +71,7 @@ class GoodsService
         $page = Request::post('page/d', 1);			// 当前页
         $limit = Request::post('limit/d', 20);		// 每页显示数量
         $type = Request::post('type/d', 0);			// 视频分类
-        $size = Request::post('is_size/d', 0);			// 是否大视频
+        $size = Request::post('is_size/d', 1);			// 是否大视频
         $labels = Request::post('labels', '');			// 是否搜索了标签
         $videoname = Request::post('video_name', '');			// 是否搜索了电影名称
         $video_id = Request::post('video_id/d', 0);			// 是否搜索了电影名称
@@ -79,7 +79,7 @@ class GoodsService
 
         $map = array(); // 初始化查询条件
         if (!empty($labels)) $map[] = ['labels','like',"%$labels%"];
-        if (!empty($videoname)) $map[] = ['labels','like',"%$videoname%"];
+        if (!empty($videoname)) $map[] = ['title','like',"%$videoname%"];
         if (!empty($video_id)) $map[] = ['id','=',$video_id];
 
         $map[] = ['status','=',1];							// 查询条件
@@ -90,15 +90,14 @@ class GoodsService
         if (!empty($VideoType)){
             $whereIn =array_column($VideoType->toArray(),'id');
         }
-       
+
         $list = (new Video())
             ->where($map)
             ->whereIn('type',$whereIn)
             ->whereLike('vod_play_from','%m3u8%')
             ->order('update_time desc,id desc')
             ->paginate(['list_rows' => $limit, 'page' => $page]);
-            
-       
+
         // 为空
         if (empty($list)) return [];
         $list = $list->toArray();
@@ -580,7 +579,7 @@ class GoodsService
 
         //开始  查看当前用户是否具备查看该视频的资格
         $video->is_purchase=5;	//is_purchase 1可观看  2需要单独购买 5不可观看  | 默认设置为不可以观看
-       
+
         // 只能单片 购买观看 不能加入套餐内播放产品
         if($video->is_only_buy_alone == 1){
             //查看用户是否对当前视频单独购买了
@@ -593,7 +592,7 @@ class GoodsService
         if($video->is_only_buy_alone == 0 || empty($video->is_only_buy_alone)){
             //查看用户是否对当前视频单独购买了
             $alone_video = (new VideoBuyUserVideo())->alone_purchase($home_user['id'],$video->id);
-            
+
             if ($alone_video) $video->is_purchase = 1;
 
             //查询用户购买的套餐  查看用户 套餐是否有效
@@ -635,11 +634,11 @@ class GoodsService
                 $video->is_user_pour = 1;
             }
         }
-       
+
         if($video->is_purchase == 5){
             //$video->vod_play_url = '请购买后查看';
         }
-        
+
         return $video;
     }
 

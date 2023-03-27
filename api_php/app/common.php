@@ -179,13 +179,19 @@ function get_config($name=null)
     }
     $find = \app\common\model\SysConfig::where('name',$name)->find();
     $is_json = isJsonString($find->value);
-
     if($is_json){
         $is_json['image_url'] = config('ToConfig.app_update.image_url');
         return $is_json;
     }
     return $find;
+}
 
+function getConfigOne($name=null)
+{
+    if ($name == null){
+        return false;
+    }
+    return \app\common\model\SysConfig::where('name',$name)->find();
 }
 
 

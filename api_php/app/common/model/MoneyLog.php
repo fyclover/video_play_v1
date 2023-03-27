@@ -40,4 +40,19 @@ class MoneyLog extends Model
             ->order($order)
             ->paginate(['list_rows'=>$limit,'page'=>$page], false);
     }
+
+    public static function data_insert($type,$status,$money_balance,$money_end,$money,$uid,$market_uid,$source_id,$mark){
+        self::insert([
+            'create_time' => date('Y-m-d H:i:s'),
+            'type' => $type,
+            'status' => $status,//打赏
+            'money_before' => $money_balance,
+            'money_end' => $money_end,
+            'money' => $money,
+            'uid' => $uid,
+            'market_uid' => $market_uid,
+            'source_id' => $source_id,
+            'mark' => $mark
+        ]);
+    }
 }

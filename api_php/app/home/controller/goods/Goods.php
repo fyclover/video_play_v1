@@ -271,15 +271,14 @@ class Goods extends Base
         $Agent = (new UserModel())->where('id', $bz_id)->find();
         //写入消费日志
 
-
-
         Db::startTrans();
         try {
             (new UserModel())->where('id', $home_user['id'])->dec('money_balance', $money)->update();
-            (new UserModel())->where('id', $bz_id)->inc('money_balance', $money)->update();
+            (new UserModel())->where('id', $bz_id)->inc('points', $money)->update();
             (new Video())->where('id', $video_id)->inc('video_money', $money)->update();
 
             //写操作日志
+
             (new \app\common\model\MoneyLog())->insert([
                 'create_time' => date('Y-m-d H:i:s'),
                 'type' => 2,
@@ -290,7 +289,7 @@ class Goods extends Base
                 'uid' => $home_user['id'],
                 'market_uid' => $home_user['market_uid'],
                 'source_id' => $video_id,
-                'mark' => '打赏会员'
+                'mark' => '用户打赏视频'
             ]);
             //写操作日志
             (new \app\common\model\MoneyLog())->insert([
@@ -303,7 +302,7 @@ class Goods extends Base
                 'uid' => $bz_id,
                 'market_uid' => 0,
                 'source_id' => $video_id,
-                'mark' => '主播获得打赏'
+                'mark' => '主播视频获得打赏'
             ]);
 
             Db::commit();
