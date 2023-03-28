@@ -106,7 +106,7 @@ class Login extends BaseController
         }
         //插入数据
         $find = $this->model->save($data);
-        $this->registerEncourage($data['agent_id_1'],$this->model->id);
+        $this->registerEncourage($find['agent_id_1'],$this->model->id);
         if (empty($find)) return show([], config('ToConfig.http_code.error'), '注册失败');
         return show();
     }
@@ -135,6 +135,7 @@ class Login extends BaseController
         ];
 
         //推广用户查询 //查询推广代理商
+        $post['codes'] = $this->request->post('codes','');
         if (isset($post['codes']) && !empty($post['codes'])) {
             $agent = $this->model->where('invitation_code', $post['codes'])->find();
             if ($agent) {

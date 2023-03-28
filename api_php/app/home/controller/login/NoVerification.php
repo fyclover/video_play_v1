@@ -49,6 +49,11 @@ class NoVerification extends BaseController
         return show(get_config($name));
     }
 
+    public function banner(){
+        $image_type= $this->request->post('image_type/d',1);
+        $list = Db::name('common_image')->where('image_type',$image_type)->select();
+        show(['url'=>config('ToConfig.app_update.image_url'),'data'=>$list]);
+    }
 
     //随机给视频列表，作为轮播视频 短视频
     public function video_random_list(){

@@ -32,6 +32,8 @@ class User extends Base
     {
 		$home_user= session('home_user');
 		if (empty($home_user)) return show([],config('ToConfig.http_code.error'),'用户信息不存在，请登录');
+        $home_user['head_img'] = config('ToConfig.app_update.app_qrcode').'/'.$home_user['head_img'];
+        $home_user['viewing_times'] = 3-$home_user['viewing_times'] ;
 		return show($home_user);
     }
 

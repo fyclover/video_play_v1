@@ -1,111 +1,40 @@
-<template>
-  <div class="page-content">
-    <div class="tips">
-      <img src="@img/404.png" />
-      <div class="right-wrap">
-        <p>抱歉，你访问的页面不存在</p>
-        <el-button type="primary" @click="goHomePage">返回首页</el-button>
-      </div>
-    </div>
-    
-    <div class="bottom">
-      <a href="https://www.lingchen.kim" target="_blank">博客</a>
-      <a href="https://www.lingchen.kim/detail?id=416" target="_blank">介绍</a>
-    </div>
-  </div>
-</template>
+<view style="width: 100%;display: flex;align-items: center;justify-content: flex-start;flex-wrap: wrap;padding-top: 30upx;padding-bottom: 30upx; " v-show="true">
 
-<script>
-  export default {
-    data() {
-      return {
-        
-      }
-    },
-    methods: {
-      goHomePage() {
-        this.$router.push('/')
-      }
-    }
-  };
-</script>
 
-<style lang="scss" scoped>
-  .page-content {
-    width: 100%;
-    height: 100%;
+       <!-- 下面这个 有几张图就复制几份-->
+       <view style="width: 30%;">
+        <image src="https://upload.bxgtv.top/topic/banner/xuanchuan.png" style="width: 100%;height: 240upx;border-radius: 20upx;"></image>
+        <a href="" style='width: 100%;height: 60upx;text-decoration: none;color: black;display: flex;align-items: center;justify-content: center;font-size: 30upx;background-color: red;color: white;margin-top: 10upx;border-radius: 20upx;'>下载</ a>
+       </view>
+       <!--  -->
 
-    .tips {
-      width: 630px;
-      margin: auto;
-      margin-top: 25vh;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+         <view style="width: 30%;">
+          <image src="https://upload.bxgtv.top/topic/topic/banner/1.jpg" style="width: 100%;height: 240upx;border-radius: 20upx;"></image>
+          <a href="" style='width: 100%;height: 60upx;text-decoration: none;color: black;display: flex;align-items: center;justify-content: center;font-size: 30upx;background-color: red;color: white;margin-top: 10upx;border-radius: 20upx;'>下载</ a>
+         </view>
 
-      img {
-        width: 300px;
-        height: 180px;
-      }
+         <view style="width: 30%;">
+          <image src="https://upload.bxgtv.top/topic/topic/banner/1.jpg" style="width: 100%;height: 240upx;border-radius: 20upx;"></image>
+          <a href="" style='width: 100%;height: 60upx;text-decoration: none;color: black;display: flex;align-items: center;justify-content: center;font-size: 30upx;background-color: red;color: white;margin-top: 10upx;border-radius: 20upx;'>下载</ a>
+         </view>
 
-      .right-wrap {
+         <view style="width: 30%;">
+          <image src="https://upload.bxgtv.top/topic/topic/banner/1.jpg" style="width: 100%;height: 240upx;border-radius: 20upx;"></image>
+          <a href="" style='width: 100%;height: 60upx;text-decoration: none;color: black;display: flex;align-items: center;justify-content: center;font-size: 30upx;background-color: red;color: white;margin-top: 10upx;border-radius: 20upx;'>下载</ a>
+         </view>
 
-        p {
-          color: #808695;
-          font-size: 20px;
-          line-height: 28px;
-        }
+         <view style="width: 30%;">
+          <image src="https://upload.bxgtv.top/topic/topic/banner/1.jpg" style="width: 100%;height: 240upx;border-radius: 20upx;"></image>
+          <a href="" style='width: 100%;height: 60upx;text-decoration: none;color: black;display: flex;align-items: center;justify-content: center;font-size: 30upx;background-color: red;color: white;margin-top: 10upx;border-radius: 20upx;'>下载</ a>
+         </view>
 
-        .el-button {
-          margin-top: 20px;
-        }
-      }
-    }
+         <view style="width: 30%;">
+          <image src="https://upload.bxgtv.top/topic/topic/banner/1.jpg" style="width: 100%;height: 240upx;border-radius: 20upx;"></image>
+          <a href="" style='width: 100%;height: 60upx;text-decoration: none;color: black;display: flex;align-items: center;justify-content: center;font-size: 30upx;background-color: red;color: white;margin-top: 10upx;border-radius: 20upx;'>下载</ a>
+         </view>
 
-    .bottom {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 30px;
-      margin: auto;
-      text-align: center;
-
-      a {
-        color: #808695;
-        font-size: 15px;
-        text-decoration: none;
-        margin-right: 30px;
-
-        &:last-of-type {
-          margin-right: 0;
-        }
-      }
-    }
-  }
-
-  @media only screen and (max-width: $device-phone) { 
-    .page-content {
-
-      .tips {
-        width: 100%;
-        margin-top: 10vh;
-        display: block;
-
-        img {
-          width: 230px;
-          display: block;
-          margin: auto
-        }
-
-        .right-wrap {
-          text-align: center;
-
-          p {
-            font-size: 18px;
-            margin-top: 40px;
-          }
-        }
-      }
-    }
-  }
-</style>
+         <view style="width: 30%;">
+          <image src="https://upload.bxgtv.top/topic/topic/banner/1.jpg" style="width: 100%;height: 240upx;border-radius: 20upx;"></image>
+          <a href="" style='width: 100%;height: 60upx;text-decoration: none;color: black;display: flex;align-items: center;justify-content: center;font-size: 30upx;background-color: red;color: white;margin-top: 10upx;border-radius: 20upx;'>下载</ a>
+         </view>
+      </view>

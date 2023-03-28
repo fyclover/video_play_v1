@@ -1,5 +1,0 @@
-一个简单的M3U8播放程序
-调用方法：
-
-http://域名/index.php?url=m3u8地址
-演示：http://vip.xxphp.cn/m3u8/?url=https://kan-xhzy.com/20220920/WfGRpHwW/index.m3u8

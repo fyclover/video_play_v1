@@ -443,5 +443,4 @@ class GoodsInfo extends Base
         ]);
         return show($list);
     }
-    //去推广
 }

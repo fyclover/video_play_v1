@@ -570,13 +570,13 @@ class GoodsService
         // $video = (new Video())->find($videoId);	//查询视频  | 联合上播放地址
         $video = (new Video())
             ->alias('a')
-            ->alias('a')
             ->field('b.*,a.admin_uid,a.duration,a.heat,a.sort,a.video_price,a.video_money')
             ->where(array('a.id'=>$videoId))
             ->join('video_detail b', 'a.id=b.vod_id','left')
             ->find();
         if (empty($video)) return false;//没有该视频
         (new Video())->where('id',$videoId)->inc('heat',1)->update();
+
 
         //开始  查看当前用户是否具备查看该视频的资格
         $video->is_purchase=5;	//is_purchase 1可观看  2需要单独购买 5不可观看  | 默认设置为不可以观看
@@ -636,8 +636,9 @@ class GoodsService
             }
         }
 
-        if($video->is_purchase == 5){
-            //$video->vod_play_url = '请购买后查看';
+        if ($home_user < 3){
+            UserModel::where('id',$home_user['id'])->inc('viewing_times',1)->update();
+            $video->is_purchase = 1;
         }
 
         return $video;

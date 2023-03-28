@@ -6,16 +6,18 @@ return [
     ],
     'captcha'=>'aa123456',//万能验证码
     'http_code'=>[ //返回code
-      'error'=>0,
-      'success'=>1,
+        'error'=>0,
+        'success'=>1,
     ],
     'app_update' => [
-        'image_url' => 'http://api.bxgtv.top/storage',//上传文件域名 图片视频等
+        //'image_url' => 'http://api.bxgtv.top/storage',//上传文件域名 图片视频等
+        'image_url' => 'https://upload.bxgtv.top',//上传文件域名 图片视频等
+
         'app_qrcode' => 'https://api.bxgtv.top/',//二维码地址
     ],
     'app_tg' => [
         //'tg_url' => 'tg.yhvip666.net/',//推广域名格式  xxx.tg.tp.com?code=asdasds
-        'tg_url' => '.tp.com/'
+        'tg_url' => 'https://api.bxgtv.top/'
     ],
     'admin_vip' => [
         'admin_vip_id' => 1,// 超级管理员权限ID免控制器和方法权限

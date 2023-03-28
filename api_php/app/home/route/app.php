@@ -17,6 +17,7 @@ Route::rule('login/change_pwd$', 'home/login.UpdatePwd/change_pwd');//修改密�
 Route::rule('login/update_phone$', 'home/login.UpdatePwd/update_phone');//修改密码
 
 Route::rule('qrcode/index$', 'home/qrcode.code/qrcode');//二维码生成
+Route::rule('qrcode/download$', 'home/qrcode.code/download');
 
 Route::rule('goods/recharge$', 'home/goods.goods/recharge');//充值购买  | 暂时废弃
 
@@ -39,6 +40,7 @@ Route::rule('validity/period$', 'home/goods.goods/validity_period_info');//购�
 Route::rule('goods/video_type$', 'home/login.NoVerification/video_type_list');//查询视频分类
 Route::rule('goods/AllList$', 'home/login.NoVerification/video_all_list');			// 所有的视频列表
 Route::rule('user/config$', 'home/login.NoVerification/get_config');//配置文件
+Route::rule('image/banner$', 'home/login.NoVerification/banner');//图片
 Route::rule('video/random$', 'home/login.NoVerification/video_random_list');//视频随机
 Route::rule('video/mp_random$', 'home/login.NoVerification/video_mp_random_list');//长视频视频随机
 Route::rule('video/comment_list$', 'home/login.NoVerification/video_comment_list');//视频评论

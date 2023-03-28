@@ -1,0 +1,19 @@
+﻿1 api_php 默认账号 admin 密码 123456 验证码 aa123456
+    config/ToConfig  里面的域名需要全部替换
+    command 计划任务需要启动
+    数据库配置修改
+
+2 admin_html 域名替换打包
+
+3 uplocad  默认账号 admin 密码 123456
+    数据库配置
+    command 计划任务
+    安装 需要运行 ffmpeg.sh
+
+4  下载弹出成图片的 图片存放在 upload/public/topic/banner
+        数据库是 ntp_common_image  改里里面图片地址就行了
+
+
+
+
+
