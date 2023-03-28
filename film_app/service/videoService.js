@@ -90,7 +90,30 @@ const videoService = {
 	getMyVidoUserPourUnread(params) {
 		return $http.post('/goods/user_pour_unread', params)
 	},
-	
+	// app页面推广返利
+	app(params){
+		return $http.post('/goodsInfo/rebate', params)
+	},
+	//推广记录
+	tuiguangjilu(params){
+		return $http.post('/goodsInfo/recordList', params)
+	},
+	// 收益
+	income(params){
+		return $http.post('/goodsInfo/income', params)
+	},
+	// 二维码
+	erweima(params){
+		return $http.post('/qrcode/index', params)
+	},
+	// 轮播图
+	lunbo(params){
+		return $http.post('/image/banner', params)
+	},
+	// 下载二维码
+	download(params){
+		return $http.post('/qrcode/download', params)
+	},
 	// //新片榜
 	// getHotVideoList(params) {
 	// 	return $http.post('/goods/hotList', params)

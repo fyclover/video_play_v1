@@ -109,7 +109,7 @@
 						return
 					}
 					this.hotTopicList = res.data
-					
+					console.log(res.data,'热搜标签')
 				}).catch(err => {
 					console.log(err)
 				})
@@ -125,7 +125,7 @@
 						return
 					}
 					this.hotTopicLabels = res.data
-					
+					console.log(res.data,'热搜标签')
 				}).catch(err => {
 					console.log(err)
 				})
@@ -174,6 +174,7 @@
 						return
 					}
 					this.hotDramatList = res.data
+					console.log(res.data,'获取热搜剧主')
 					if(this.hotDramatList.length > 0) {
 						
 					}

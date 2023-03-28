@@ -1,4 +1,7 @@
 {
+	"easycom": {
+			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+		},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		
 		{
@@ -157,6 +160,42 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/popularize/popularize",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "推广赚钱",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/app/app",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "推广APP",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/income/income",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "收益明细",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/notes/notes",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "推广记录",
                 "enablePullDownRefresh": false
             }
             

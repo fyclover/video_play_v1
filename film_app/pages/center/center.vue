@@ -1,11 +1,13 @@
 <template>
-	<view class="center">
+	<view class="center" >
+		
 		<view class="center_header">
-			<view class="center_h_top"  style="">
+			<view class="center_h_top"  >
 
 				<view class="center_h_img" >
 					<img src="/static/img_index/touxiang1.png" >
 				</view>
+				
 				<view class="center_h_info" >
 					<view class="">
 						{{userInfo.nickname}}
@@ -38,7 +40,14 @@
 				</view>
 			</view> -->
 		</view>
-
+         <view class="cishu">
+			 <view class="left">
+				剩余次数： {{userInfo.viewing_times}}
+			 </view>
+			 <view class="right">
+				 <view class="btn" @tap='kaitonghuiyuan'>开通会员</view>
+			 </view>
+		 </view>
 		<view class="center_section">
 			<view class="center_base">
 				<view class="center_data">
@@ -84,14 +93,14 @@
 							<img src="/static/img_index/coin.png" >
 							<text class="center_b_title">金币钱包</text>
 						</view>
-						<view class="center_b_cen">当前余额：{{userInfo.money_balance}}</view>
+						<view class="center_b_cen" style="">余额：{{userInfo.money_balance}}</view>
 						<view class="center_b_bot" >
 							<view class="center_b_btn" @click="toRecharge()">
 								去充值
 							</view>
 						</view>
 					</view>
-					<view class="center_b_item">
+					<view class="center_b_item" @tap="tuiguang()">
 						<view class="center_b_top">
 							<img src="/static/img_index/redpacke.png" >
 							<text class="center_b_title">推广赚钱</text>
@@ -112,7 +121,7 @@
 					<!-- <text class="center_r_more">更多</text> -->
 				</view>
 				<view class="center_r_film">
-					<view class="center_r_block" v-for="(item,index ) in browseList" :key="index" @click="toVideoPlay(item)">
+					<view class="center_r_block" v-for="(item,index ) in browseList"  @click="toVideoPlay(item)">
 						<view class="center_r_img">
 							<img :src="item.thumb_url" >
 						</view>
@@ -132,7 +141,7 @@
 				</view>
 			</view>
 
-			<view class="center_menu">
+			<view class="center_menu" style="padding-bottom: 150upx;">
 				<view class="center_r_top">
 					<text class="center_r_title">常用功能</text>
 					<text class="center_r_more"></text>
@@ -219,17 +228,26 @@
 							消息
 						</view>
 					</view>
+					
+					<view class="center_m_item disc" @click="app()" style="margin-top: 20upx;">
+						<view class="center_m_img disc" style="width: 96upx;height: 96upx;">
+							<image src="../../static/app/tuiguang.png" mode="" style="width: 86upx;height: 86upx;"></image>
+						</view>
+						<view class="center_m_name" style="padding-top: 20upx;">
+							APP推广
+						</view>
+					</view>
 				</view>
 			</view>
 			
-			<view class="center_record">
+			<view class="center_record" style="padding-bottom: 150upx;">
 				<view class="center_r_top">
 					<text class="center_r_title">我的作品</text>
 					<text class="center_r_more"></text>
 				</view>
 				<scroll-view scroll-y="true" @scrolltolower="scrollEventLower" class="">
 					<view class="center_work_list">
-						<view class="center_work" v-for="(item) in mineVideoList" :key="item.id" @click="toVideoPlay(item)">
+						<view class="center_work" v-for="(item) in mineVideoList"  @click="toVideoPlay(item)">
 							<view class="center_poster" >
 								<img :src="item.thumb_url" alt="">
 								<img class="center_play_img" src="/static/video/play.svg" alt="">
@@ -242,6 +260,26 @@
 					</view>
 				</scroll-view>
 			</view>
+			
+			<view class="modal disc" v-if="modalVisible" style="" >
+				<view style="width: 100%;height:500px; display:flex;align-items: center;justify-content: space-around;flex-wrap: wrap;padding-top: 30upx;padding-bottom: 30upx; " v-show="true">
+				         
+				     <!-- 下面这个 有几张图就复制几份-->   
+				     <view style="width: 30%; margin-top: 30upx;" v-for="(item,index) in imgUrls">
+				      <image :src="qian+item.img_path" style="width: 100%;height: 240upx;border-radius: 20upx; "></image>
+				      <a href="" style='width: 100%;height: 60upx;text-decoration: none;color: black;display: flex;align-items: center;justify-content: center;font-size: 30upx;background-color: red;color: white;margin-top: 10upx;border-radius: 20upx;'>下载</a>
+				     </view>
+					
+				     <!--  -->
+				       
+				    </view>	
+				
+				<view class="index_m_bottom" @click="closeModal()" style="z-index: 999;margin-top: 120upx;">
+					<img src="/static/img_index/close.png" alt="">
+				</view>
+			</view>
+			
+			
 		</view>
 	</view>
 </template>
@@ -249,6 +287,7 @@
 <script>
 	import userService from '@/service/userService.js'
 	import videoService from '@/service/videoService.js'
+	
 	export default {
 		data() {
 			return {
@@ -260,7 +299,11 @@
 				end_time:'未购买',
 				VIPSate: false,
 				page:1,
-				mineVideoList: []
+				mineVideoList: [],
+				modalVisible:true,
+				configData:{},
+				imgUrls:[],
+				qian:''
 			};
 		},
 		onShow() {
@@ -268,11 +311,53 @@
 			this.getBrowseHistory()
 			this.getValidityPeriodInfo()
 			this.getMyVidoList()
+			
+			let data={
+				"image_type":'3'
+			}
+			videoService.lunbo(data).then(res=>{
+				this.imgUrls=res.data.data
+				console.log(this.imgUrls,'999')
+				this.qian=res.data.url
+			})
 		},
 		mounted() {
-			
+			this.getUserConfig()
 		},
 		methods: {
+			kaitonghuiyuan(){
+				uni.navigateTo({
+					url:'/pages/recharge/recharge'
+				})
+			},
+			getUserConfig() {
+				userService.getUserConfig({name: 'prompt_content_app'}).then(res => {
+					this.configData = res.data
+					
+					localStorage.setItem('guanyuwomen',res.data.value);
+				}).catch(err => {
+					console.log('err:',err)
+				})
+				//获取图片配置
+				userService.getUserConfig({name: 'array_banner'}).then(res => {
+					this.banner_tuijian = res.data.image_url + res.data.tuijie;
+					this.banner_quanbu = res.data.image_url + res.data.quanbu;
+					this.banner_fenlei = res.data.image_url + res.data.fenlei;
+					localStorage.setItem('image_url',res.data.image_url);
+					uni.setStorageSync('array_banner_tuijie',this.banner_tuijian);
+					uni.setStorageSync('array_banner_dianbo',res.data.image_url + res.data.dianbo);
+				}).catch(err => {
+					console.log('err:',err)
+				})
+			},
+			closeModal() {
+				this.modalVisible = false;
+			},
+			tuiguang(){
+				uni.navigateTo({
+					url:'/pages/popularize/popularize'
+				})
+			},
 			getMyVidoList(){
 				let data = {
 					page : this.page
@@ -291,6 +376,11 @@
 			toMsg() {
 				uni.navigateTo({
 					url: '/pages/msg/msg'
+				})
+			},
+			app(){
+				uni.navigateTo({
+					url:'/pages/app/app'
 				})
 			},
 			//跳转到视频播放
@@ -314,8 +404,19 @@
 				// 	})
 				// 	return
 				// }
-				if(videoInfo.vod_play_from == 'slm3u8') {
-					uni.setStorageSync('sortVideoInfo',JSON.stringify(videoInfo))
+				// if(videoInfo.vod_play_from == 'slm3u8') {
+				// 	uni.setStorageSync('sortVideoInfo',JSON.stringify(videoInfo))
+				// 	uni.switchTab({
+				// 		url:'/pages/videoPlay/videoPlay',
+				// 	})
+				// 	// uni.navigateTo({
+				// 	// 	url: '/pages/sortVideo/sortVideo',
+				// 	// })
+				// 	return
+				// }
+				if(videoInfo.vod_play_from.indexOf("m3u8") != -1) {
+					// uni.setStorageSync('sortVideoInfo',JSON.stringify(videoInfo))
+					 uni.setStorageSync('videoInfo',JSON.stringify(videoInfo))
 					uni.switchTab({
 						url:'/pages/videoPlay/videoPlay',
 					})
@@ -365,6 +466,7 @@
 			getUserInfo() {
 				userService.getUserInfo({token: uni.getStorageSync('token')}).then(res => {
 					this.userInfo = res.data
+					console.log(res.data)
 				}).catch(err => {
 					console.log('err:',err)
 				})
@@ -426,6 +528,44 @@
 </script>
 
 <style lang="scss">
+	
+	.cishu{
+		width: 90%;
+		height: 60upx;
+		background-color: #0076f9;
+		margin: 20upx auto;
+		display: flex;
+		border-radius: 30upx;
+		.left{
+			width: 50%;
+			height: 100%;
+			font-size: 28upx;
+			display: flex;
+			align-items: center;
+			box-sizing: border-box;
+			padding-left: 20upx;
+			color: #fff;
+		}
+		.right{
+			width: 50%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: right;
+			box-sizing: border-box;
+			.btn{
+				width: 160upx;
+				height: 80%;
+				background-color: #fe7938;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 28upx;
+				border-radius: 30upx;
+				margin-right: 20upx;
+			}
+		}
+	}
 	page{
 		height: 100%;
 	}
@@ -547,10 +687,11 @@
 		}
 		.center_b_item{
 			width: 200rpx;
-			height: 144rpx;
+			height: 164rpx;
 			background: #3B3E54;
 			border-radius: 18rpx;
 			padding: 0 2rpx 0 6rpx;
+			
 		}
 		.center_b_top{
 			display: flex;
@@ -565,6 +706,7 @@
 			font-family: PingFang SC;
 			font-weight: 400;
 			color: #F3D4B4;
+			
 		}
 		.center_b_btn{
 			width: 100rpx;
@@ -718,5 +860,31 @@
 			border-right: none !important;
 		}
 	}
-
+.index_m_bottom{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 0rpx;
+		img{
+			width: 100rpx;
+			height: 100upx;
+		}
+	}
+	.index_m_panel{
+		width: 95%;
+		// height: 580rpx;
+		background: #FFFFFF;
+		border-radius: 10rpx;
+		margin: 30% auto 0 auto;
+		// padding: 30rpx 0;
+		background-size: 100% !important;
+		text-align: center;
+		
+		background: rgba(0,0,0,0);
+		// img{
+		// 	width: 90%;
+		// 	height: auto;
+		// }
+		z-index: 9999;
+	}
 </style>

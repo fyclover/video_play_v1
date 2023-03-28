@@ -6,6 +6,7 @@
 				<img class="index_search_i" src="/static/img_index/search.svg" @click="toSearch()">
 				<input class="index_search" v-model="keyWords" placeholder-style="color: #C0C0C0;font-size:12px"
 				 type="text" placeholder="请输入影视剧名称">
+				 <view style="margin-left: 10upx;color: #fff;" @click="sousuo">搜索</view>
 			</view>
 			<view class="index_cus"  @click="getConfigKefu()">
 				<img src="/static/img_index/customer.svg" >
@@ -27,9 +28,19 @@
 				</view>
 			</view>
 			<scroll-view scroll-y="true" @scrolltolower="scrollEventLower" class="index_content"  id="index_content" v-if="theme=='recommend'" >
-				<view class="index_banner">
+				<!-- <view class="index_banner">
 					<img  :src="banner_tuijian" >
-				</view>
+				</view> -->
+				<!-- 轮播图 -->
+				<swiper indicator-dots="true" autoplay="true" :interval="3000" :duration="1000" style="width: 100%;height: 400upx;">
+					<swiper-item style="width: 100%;height: 400upx;" v-for="(item,index) in lunbo">
+						<view class="swiper-item" style="width: 100%;height: 400upx;">
+							<image :src="imgUrls +item.img_path" mode=""style="width: 100%;height: 400upx;"></image>
+						</view>
+					</swiper-item>
+					
+				</swiper>
+				
 				<view class="index_apps">
 					<view class="index_ap_item" @click="toCategory(item) "
 					 v-for="item in categoryList" :key="item.id">
@@ -42,6 +53,9 @@
 				<view class="index_list_head">
 					<text class="index_li_title1"></text>
 					<text class="index_li_more"> </text>
+				</view>
+				<view class="tuijian">
+					推荐视屏
 				</view>
 				<view class="index_rec_block" @tap="toVideoPlay(item)" v-for="(item,index) in allVideoList" :key="index">
 					<view class="index_rec_poster">
@@ -170,9 +184,15 @@
 				</view>
 			</view>
 			<scroll-view scroll-y="true" @scrolltolower="scrollEventLower" class="index_content" v-if="theme=='zone'">
-				<view class="index_banner">
-					<img :src="banner_quanbu" >
-				</view>
+				<!-- 全部 -->
+				<swiper indicator-dots="true" autoplay="true" :interval="3000" :duration="1000" style="width: 100%;height: 400upx;">
+					<swiper-item style="width: 100%;height: 400upx;" v-for="(item,index) in lunbo">
+						<view class="swiper-item" style="width: 100%;height: 400upx;">
+							<image :src="imgUrls +item.img_path" mode=""style="width: 100%;height: 400upx;"></image>
+						</view>
+					</swiper-item>
+					
+				</swiper>
 				<view class="index_list_head">
 					<text class="index_li_title"></text>
 					<!-- <text class="index_li_more">查看更多 ></text> -->
@@ -192,9 +212,15 @@
 			</scroll-view>
 			<!-- 这里 -->
 			<view class="index_content" v-if="theme=='category'">
-				<view class="index_banner">
-					<img :src="banner_fenlei" >
-				</view>
+				<!-- 分类 -->
+				<swiper indicator-dots="true" autoplay="true" :interval="3000" :duration="1000" style="width: 100%;height: 400upx;">
+					<swiper-item style="width: 100%;height: 400upx;" v-for="(item,index) in lunbo">
+						<view class="swiper-item" style="width: 100%;height: 400upx;">
+							<image :src="imgUrls +item.img_path" mode=""style="width: 100%;height: 400upx;"></image>
+						</view>
+					</swiper-item>
+					
+				</swiper>
 				<view class="index_list_head" @click="setTheme('zone')">
 					<text class="index_li_title"></text>
 					<text class="index_li_more">查看更多 ></text>
@@ -250,24 +276,15 @@
 		</view>
 		
 		
-		<view class="modal" v-if="modalVisible" style="">
-			<view class="index_m_panel" v-html="configData.value" style="z-index: 1;">
+		<view class="modal disc" v-if="modalVisible" style="" >
+			<!-- <view class="index_m_panel" v-html="configData.value" >
 				
-			</view>
-			<!-- <view class="index_m_panel" >
-				:style="{'background': 'url(/static/img_index/zsjm.png)'}"
-				<view class="index_m_head">
-					温馨提示
-				</view>
-				<view class="index_m_body" >
-					{{configData.value}}
-				</view>
-				<view class="index_m_btn" @click="closeModal()">
-					确定
-				</view>
-				<img src="/static/img_index/zsjm.png" alt="">
 			</view> -->
-			<view class="index_m_bottom" @click="closeModal()" style="z-index: 999;">
+			<view style="width: 95%;height: 900upx; margin: 0 auto;">
+				<image :src="qian+tupianurl" mode="" style="width: 100%;height:100%"></image>
+			</view>
+			
+			<view class="index_m_bottom" @click="closeModal()" style="z-index: 999;margin-top: 40upx;">
 				<img src="/static/img_index/close.png" alt="">
 			</view>
 		</view>
@@ -282,6 +299,13 @@
 	export default {
 		data() {
 			return {
+				swiperList:[
+					{
+						res:[
+							'https://cdn.uviewui.com/uview/swiper/swiper2.png'
+						]
+					}
+				],
 				//主题
 				theme: uni.getStorageSync('indexTheme'),
 				//排行类型 1:新片榜 2:博主榜
@@ -316,15 +340,52 @@
 				scrollTop: -99,
 				page:1,
 				categoeryLimit: 10,
+				lunbo:[],
+				imgUrls:'',
+				tupianurl:'',
+				qian:''
 			}
 		},
-		onLoad() {
+		onLoad(options) {
 			
+			if(options.codes){
+				let data={
+					"codes":options.codes
+				}
+				this.registerTest(data)
+					
+				
+			}else{
+				console.log('不邀请')
+			}
+			
+			
+			let data={
+				"image_type":'1'
+			}
+			videoService.lunbo(data).then(res=>{
+				console.log(res.data.url)
+				this.imgUrls=res.data.url
+				this.lunbo=res.data.data
+			})
+			
+			let datas={
+				"image_type":'4'
+			}
+			videoService.lunbo(datas).then(res=>{
+				this.tupianurl=res.data.data[0].img_path
+				console.log(this.tupianurl[0])
+				this.qian=res.data.url
+			})
 		},
 		onShow() {
+			
 			this.keyWords = uni.getStorageSync('searchKeywords') || ''
 			let isLogged = uni.getStorageSync('isLogged')
+			let res=''
+			
 			if(isLogged != 1) {
+				
 				this.registerTest()
 			}
 			this.getUserConfig()
@@ -337,6 +398,9 @@
 			/**
 			 * 测试账号
 			 * **/
+			 tiao(){
+				 console.log('tiao')
+			 },
 			registerTest() {
 				loginService.registerTest({}).then(res => {
 					uni.setStorageSync('token',res.data.token)
@@ -442,6 +506,21 @@
 				uni.setStorageSync('searchKeywords',this.keyWords)
 				uni.navigateTo({
 					url:'/pages/search/search'
+				})
+			},
+			sousuo(){
+				let data={
+					page: 1,
+					limit: 20,
+					video_name:this.keyWords,
+				}
+				console.log(data)
+				videoService.getVideoAllList(data).then((res)=>{
+					
+					if(res.code==1){
+						console.log(res.data.data)
+						this.allVideoList=res.data.data
+					}
 				})
 			},
 			/**
@@ -704,6 +783,8 @@
 	}
 	.index_box{
 		position: relative;
+		display: flex;
+		align-items: center;
 	}
 	.index_search_i{
 		position: absolute;
@@ -860,6 +941,13 @@
 		width: 92vw;
 		margin: 0  auto;
 		margin-bottom: 20rpx;
+	}
+	.tuijian{
+		width: 92vw;
+		margin: 0  auto;
+		margin-bottom: 20rpx;
+		font-size: 36upx;
+		color: red;
 	}
 	.index_rec_poster{
 		height: 300rpx;
@@ -1063,10 +1151,10 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin-top: 20rpx;
+		margin-top: 0rpx;
 		img{
-			width: 180rpx;
-			height: auto;
+			width: 100rpx;
+			height: 100upx;
 		}
 	}
 	.index_cate_body{
